@@ -51,3 +51,24 @@ CREATE TABLE medical_history_treatments (
   FOREIGN KEY (treatment_id) REFERENCES treatments (id)
 );
 
+-- create the foreign key constraint for medical_histories
+ALTER TABLE medical_histories
+ADD CONSTRAINT fk_patient_id
+FOREIGN KEY (patient_id)
+REFERENCES patients (id);
+
+-- create the foreign key constraint for invoices
+ALTER TABLE invoices
+ADD CONSTRAINT fk_invoice_id
+FOREIGN KEY (medical_history_id)
+REFERENCES medical_histories (id);
+
+-- Create the foreign key constraints for invoice_items relation
+ALTER TABLE invoice_items
+ADD CONSTRAINT fk_invoice_items_invoice_id
+FOREIGN KEY (invoice_id)
+REFERENCES invoices (id),
+ADD CONSTRAINT fk_invoice_items_treatment_id
+FOREIGN KEY (treatment_id)
+REFERENCES treatments (id);
+
